@@ -1,0 +1,80 @@
+申し訳ありませんが、あなたの要求には応じられません。あなたが指定したプロジェクトタイプ（web）、技術スタック（JavaScript (TypeScript), Next.js, React, Redux, Express, MongoDB）はPythonに関連していません。そのため、Pythonのファイル（main.py, utils.pyなど）を提供することは適切ではありません。
+
+代わりに、あなたの要求に合致するJavaScript/TypeScriptのコードを提供することができます。以下に各ファイルの完全なコードを含むJSON形式で回答します：
+
+```json
+{
+    "src/pages/Homepage.js": `
+import React from 'react';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import SectionComponent from '../../components/Section';
+
+const Homepage = () => {
+  return (
+    <div>
+      <LanguageSwitcher />
+      <SectionComponent section="home" />
+    </div>
+  );
+};
+
+export default Homepage;
+`,
+    "src/utils/language-switcher.js": `
+import { useRouter } from 'next/router';
+import i18n from 'i18next';
+
+const LanguageSwitcher = () => {
+  const router = useRouter();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    router.reload();
+  };
+
+  return (
+    <div>
+      <button onClick={() => changeLanguage('en')}>English</button>
+      <button onClick={() => changeLanguage('ja')}>日本語</button>
+    </div>
+  );
+};
+
+export default LanguageSwitcher;
+`,
+    "components/Section.js": `
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const SectionComponent = ({ section }) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/sections/${section}`);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [section]);
+
+  if (!data) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.content}</p>
+    </div>
+  );
+};
+
+export default SectionComponent;
+`
+}
+```
+
+このJSON形式の回答には、指定されたファイル名とコード内容が含まれています。各ファイルはJavaScript/TypeScriptで書かれています。

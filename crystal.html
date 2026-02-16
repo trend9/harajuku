@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水晶占い - 原宿ネオ占い</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .crystal-container {
+            max-width: 900px;
+            margin: 100px auto 50px;
+            padding: 60px 40px;
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crystal-ball-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 40px;
+            cursor: pointer;
+        }
+
+        .crystal-ball {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(102, 126, 234, 0.4) 40%, rgba(118, 75, 162, 0.6) 80%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 50px rgba(102, 126, 234, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.5s ease;
+        }
+
+        .crystal-ball:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 80px rgba(102, 126, 234, 0.8), inset 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .mist {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            filter: blur(20px);
+            animation: rotate-mist 10s linear infinite;
+        }
+
+        @keyframes rotate-mist {
+            0% {
+                transform: rotate(0deg) translate(-25%, -25%);
+            }
+
+            100% {
+                transform: rotate(360deg) translate(-25%, -25%);
+            }
+        }
+
+        .crystal-base {
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(to right, #2c3e50, #000, #2c3e50);
+            margin: -20px auto 0;
+            border-radius: 10px 10px 50% 50%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .result-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 2s ease;
+            pointer-events: none;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8);
+            z-index: 2;
+        }
+
+        .crystal-ball.revealed .result-overlay {
+            opacity: 1;
+        }
+
+        .crystal-ball.revealed .mist {
+            animation: rotate-mist 2s linear infinite, fade-out 2s forwards;
+        }
+
+        @keyframes fade-out {
+            to {
+                opacity: 0.1;
+            }
+        }
+
+        .instructions {
+            color: #a78bfa;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: float 3s infinite;
+        }
+
+        .back-home {
+            margin-bottom: 30px;
+            display: inline-block;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        .final-message {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px dashed rgba(167, 139, 250, 0.3);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔮 原宿ネオ占い</div>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="horoscope.html">星座占い</a></li>
+                <li><a href="tarot.html">タロット占い</a></li>
+                <li><a href="crystal.html" class="active">水晶占い</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="crystal-container">
+        <a href="index.html" class="back-home">← ホームに戻る</a>
+
+        <h1 class="section-title">水晶占い</h1>
+
+        <div class="instructions" id="instruction">水晶をタップして、未来を映し出しましょう</div>
+
+        <div class="crystal-ball-wrapper" onclick="revealFuture()">
+            <div class="crystal-ball" id="crystal-ball">
+                <div class="mist" id="mist"></div>
+                <div class="result-overlay" id="result-text">水晶があなたの未来を映し出しています...</div>
+            </div>
+            <div class="crystal-base"></div>
+        </div>
+
+        <div class="final-message" id="final-message">
+            <p id="detailed-text"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 原宿ネオ占い. All rights reserved.</p>
+    </footer>
+
+    <script src="fortune-engine.js"></script>
+    <script>
+        let isRevealed = false;
+
+        function revealFuture() {
+            if (isRevealed) return;
+            isRevealed = true;
+
+            const ball = document.getElementById('crystal-ball');
+            const resultText = document.getElementById('result-text');
+            const detailText = document.getElementById('detailed-text');
+            const finalBox = document.getElementById('final-message');
+            const instruction = document.getElementById('instruction');
+
+            // エンジンから結果を取得
+            const result = FortuneEngine.getCrystalResult();
+            resultText.textContent = ""; // 透明な状態にする
+            detailText.textContent = result;
+
+            ball.classList.add('revealed');
+            instruction.style.display = 'none';
+
+            // 光が強まる演出
+            ball.style.boxShadow = "0 0 150px rgba(102, 126, 234, 1), inset 0 0 100px rgba(255, 255, 255, 0.5)";
+
+            setTimeout(() => {
+                finalBox.style.display = 'block';
+                finalBox.style.opacity = '0';
+                finalBox.style.transition = 'opacity 1s ease';
+                setTimeout(() => finalBox.style.opacity = '1', 10);
+
+                // 水晶の中からメッセージが浮かび上がる（短縮版）
+                resultText.textContent = "運命が示されました";
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

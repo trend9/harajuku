@@ -1,0 +1,31 @@
+name: Daily Column Update
+
+on:
+  schedule:
+    - cron: '0 15 * * *' # 日本時間 0:00 (UTC 15:00)
+  workflow_dispatch: # 手動実行も可能にする
+
+jobs:
+  update-columns:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate articles and index
+        run: node generate-columns.js
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add columns/index.html
+          git commit -m "chore: daily column update $(date +'%Y-%m-%d')" || exit 0
+          git push

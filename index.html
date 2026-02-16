@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原宿ネオ占い - あなたの未来を照らす</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ヘッダー & ナビゲーション -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">🔮 原宿ネオ占い</div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">ホーム</a></li>
+                <li><a href="index.html#fortune">占い</a></li>
+                <li><a href="horoscope.html">星座占い</a></li>
+                <li><a href="tarot.html">タロット占い</a></li>
+                <li><a href="crystal.html">水晶占い</a></li>
+                <li><a href="columns/index.html">開運コラム</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button onclick="switchLanguage('ja')" class="lang-btn active">🇯🇵 日本語</button>
+                <button onclick="switchLanguage('en')" class="lang-btn">🇬🇧 English</button>
+                <button onclick="switchLanguage('th')" class="lang-btn">🇹🇭 ไทย</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-in">あなたの運命を占います</h1>
+            <p class="hero-subtitle animate-fade-in-delay">星々があなたの未来を教えてくれます</p>
+            <button class="cta-button animate-bounce" onclick="goToTodayFortune()">
+                今日の運勢を見る ✨
+            </button>
+        </div>
+        <div class="stars"></div>
+    </section>
+
+    <!-- 占いセクション -->
+    <section id="fortune" class="fortune-section">
+        <div class="container">
+            <h2 class="section-title">今日の運勢</h2>
+            <div class="fortune-cards">
+                <div class="fortune-card">
+                    <div class="card-icon">❤️</div>
+                    <h3>恋愛運</h3>
+                    <p class="fortune-text" id="love-fortune">占い結果を表示...</p>
+                    <button class="fortune-btn" onclick="getFortune('love')">占う</button>
+                </div>
+                <div class="fortune-card">
+                    <div class="card-icon">💰</div>
+                    <h3>金運</h3>
+                    <p class="fortune-text" id="money-fortune">占い結果を表示...</p>
+                    <button class="fortune-btn" onclick="getFortune('money')">占う</button>
+                </div>
+                <div class="fortune-card">
+                    <div class="card-icon">🍀</div>
+                    <h3>総合運</h3>
+                    <p class="fortune-text" id="general-fortune">占い結果を表示...</p>
+                    <button class="fortune-btn" onclick="getFortune('general')">占う</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 占いについてセクション -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">占いについて</h2>
+            <div class="about-content">
+                <a href="horoscope.html" class="about-card clickable">
+                    <h3>🌟 星座占い</h3>
+                    <p>あなたの星座から運勢を読み解きます。古代から伝わる占星術の知恵をお届けします。</p>
+                </a>
+                <a href="tarot.html" class="about-card clickable">
+                    <h3>🎴 タロット占い</h3>
+                    <p>タロットカードがあなたの未来を示します。カードの意味を深く理解し、運命を読み解きます。</p>
+                </a>
+                <a href="crystal.html" class="about-card clickable">
+                    <h3>🔮 水晶占い</h3>
+                    <p>水晶玉に映る未来を見つめます。神秘的な力があなたを導きます。</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">お問い合わせ</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="お名前" required>
+                <input type="email" placeholder="メールアドレス" required>
+                <textarea placeholder="メッセージ" rows="5" required></textarea>
+                <button type="submit" class="submit-btn">送信</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2026 原宿ネオ占い. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
