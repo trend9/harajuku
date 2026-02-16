@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://harajuku-neo-uranai.com/sitemap.xml
+Sitemap: https://harajuku-neo-uranai.vercel.app/sitemap.xml

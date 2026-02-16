@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // 設定
-const BASE_URL = 'https://harajuku-neo-uranai.com'; // 必要に応じて変更してください
+const BASE_URL = 'https://harajuku-neo-uranai.vercel.app'; // 実際のURLに合わせて変更してください
 const columnsDir = path.join(__dirname, 'columns');
 const fortunesDir = path.join(__dirname, 'fortunes');
 
