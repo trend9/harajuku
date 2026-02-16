@@ -20,12 +20,14 @@ jobs:
           node-version: '20'
 
       - name: Generate articles and index
-        run: node generate-columns.js
+        run: |
+          node generate-columns.js
+          node generate-sitemap.js
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add columns/index.html
-          git commit -m "chore: daily column update $(date +'%Y-%m-%d')" || exit 0
+          git add columns/index.html sitemap.xml sitemap.html
+          git commit -m "chore: daily update $(date +'%Y-%m-%d')" || exit 0
           git push

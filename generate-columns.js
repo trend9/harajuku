@@ -294,6 +294,9 @@ function generateArticle(date, id) {
 
     <footer>
         <p>&copy; 2026 原宿ネオ占い. All rights reserved.</p>
+        <div style="margin-top: 10px;">
+            <a href="../sitemap.html" style="color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem;">サイトマップ</a>
+        </div>
     </footer>
 </body>
 </html>`;
@@ -451,6 +454,9 @@ let indexHtml = `<!DOCTYPE html>
     </div>
     <footer>
         <p>&copy; 2026 原宿ネオ占い. All rights reserved.</p>
+        <div style="margin-top: 10px;">
+            <a href="../sitemap.html" style="color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem;">サイトマップ</a>
+        </div>
     </footer>
 </body>
 </html>`;
