@@ -40,23 +40,26 @@ const publishedFortunes = getPublishedFiles(fortunesDir, (fileName) => {
 
 // メインページのリスト
 const mainPages = [
-    '',
-    'horoscope.html',
-    'tarot.html',
-    'crystal.html',
-    'columns/index.html'
+    { rel: '', priority: '1.0', freq: 'daily' },
+    { rel: 'horoscope.html', priority: '0.8', freq: 'daily' },
+    { rel: 'tarot.html', priority: '0.8', freq: 'daily' },
+    { rel: 'crystal.html', priority: '0.8', freq: 'daily' },
+    { rel: 'columns/index.html', priority: '0.8', freq: 'daily' }
 ];
 
 let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
 
+const lastmod = todayJST.toISOString().split('T')[0];
+
 // メインページ追加
 mainPages.forEach(page => {
     sitemap += `  <url>
-    <loc>${BASE_URL}/${page}</loc>
-    <priority>${page === '' ? '1.0' : '0.8'}</priority>
-    <changefreq>daily</changefreq>
+    <loc>${BASE_URL}/${page.rel}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${page.freq}</changefreq>
+    <priority>${page.priority}</priority>
   </url>\n`;
 });
 
@@ -64,8 +67,9 @@ mainPages.forEach(page => {
 publishedColumns.forEach(file => {
     sitemap += `  <url>
     <loc>${BASE_URL}/columns/${file}</loc>
-    <priority>0.6</priority>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>\n`;
 });
 
@@ -73,8 +77,9 @@ publishedColumns.forEach(file => {
 publishedFortunes.forEach(file => {
     sitemap += `  <url>
     <loc>${BASE_URL}/fortunes/${file}</loc>
-    <priority>0.5</priority>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>\n`;
 });
 
@@ -163,3 +168,13 @@ const sitemapHtml = `<!DOCTYPE html>
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.html'), sitemapHtml);
 console.log('✅ sitemap.html を生成しました。');
+
+// --- robots.txt の生成 ---
+const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${BASE_URL}/sitemap.xml
+`;
+
+fs.writeFileSync(path.join(__dirname, 'robots.txt'), robotsTxt);
+console.log('✅ robots.txt を生成しました。');

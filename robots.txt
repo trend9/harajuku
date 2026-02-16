@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harajuku-neo-uranai.com/sitemap.xml
